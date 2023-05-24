@@ -1,5 +1,6 @@
 use reqwest::{header, Client};
 
+/// Represents a Clash of Clans API client.
 struct CoCClient {
     base_url: String,
     bearer_token: String,
@@ -9,6 +10,18 @@ struct CoCClient {
 }
 
 impl CoCClient {
+    /// Creates a new instance of `CoCClient`.
+    ///
+    /// # Arguments
+    ///
+    /// * `bearer_token` - A string representing the bearer token used for authentication.
+    /// * `client` - An optional `Client` instance for making HTTP requests. If `None` is provided,
+    ///              a default `Client` will be created with custom headers.
+    ///
+    /// # Returns
+    ///
+    /// A new instance of `CoCClient` initialized with the provided bearer token and client.
+    ///
     fn new(bearer_token: String, client: Option<Client>) -> Self {
         let base_url = String::from("https://api.clashofclans.com");
 
@@ -44,7 +57,7 @@ impl CoCClient {
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn new_coc_client() {
         let bearer_token = String::from("MY_BEARER_TOKEN");
@@ -54,7 +67,7 @@ mod tests {
         let version = String::from("v1");
 
         let url = String::from("https://api.clashofclans.com/v1");
-        
+
         let coc_client = CoCClient::new(bearer_token, None);
 
         assert_eq!(coc_client.bearer_token, String::from("MY_BEARER_TOKEN"));
