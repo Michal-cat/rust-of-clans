@@ -9,7 +9,7 @@ struct CoCClient {
 }
 
 impl CoCClient {
-    fn new(self, bearer_token: String, client: Option<Client>) -> Self {
+    fn new(bearer_token: String, client: Option<Client>) -> Self {
         let base_url = String::from("https://api.clashofclans.com");
 
         let version = String::from("v1");
@@ -38,5 +38,33 @@ impl CoCClient {
             url,
             version,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    
+    #[test]
+    fn new_coc_client() {
+        let bearer_token = String::from("MY_BEARER_TOKEN");
+
+        let base_url = String::from("https://api.clashofclans.com");
+
+        let version = String::from("v1");
+
+        let url = String::from("https://api.clashofclans.com/v1");
+        
+        let coc_client = CoCClient::new(bearer_token, None);
+
+        assert_eq!(coc_client.bearer_token, String::from("MY_BEARER_TOKEN"));
+
+        assert_eq!(coc_client.base_url, base_url);
+
+        assert_eq!(coc_client.version, version);
+
+        assert_eq!(coc_client.url, url);
+
+        assert!(coc_client.client.is_some())
     }
 }
