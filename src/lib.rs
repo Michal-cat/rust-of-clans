@@ -1,15 +1,15 @@
-pub mod requests;
 pub mod models;
+pub mod requests;
 
 use reqwest::{header, Client};
 
 /// Represents a Clash of Clans API client.
 pub struct CoCClient {
-    base_url: String,
-    bearer_token: String,
-    client: Option<Client>,
-    url: String,
-    version: String,
+    pub base_url: String,
+    pub bearer_token: String,
+    pub client: Option<Client>,
+    pub url: String,
+    pub version: String,
 }
 
 impl CoCClient {
