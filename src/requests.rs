@@ -8,8 +8,6 @@ impl CoCClient {
 
         let path = format!("{}/clans/{}", self.url, encoded_clan_tag);
 
-        println!("PATH: {}", path);
-
         let res = self
             .client
             .unwrap()
@@ -22,10 +20,6 @@ impl CoCClient {
             .unwrap();
 
         let clan = serde_json::from_str(&res).unwrap();
-
-        println!("RESPONSE: {}", res);
-
-        println!("CLAN: {:?}", clan);
 
         return clan;
     }
