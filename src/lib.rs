@@ -1,7 +1,10 @@
+pub mod requests;
+pub mod models;
+
 use reqwest::{header, Client};
 
 /// Represents a Clash of Clans API client.
-struct CoCClient {
+pub struct CoCClient {
     base_url: String,
     bearer_token: String,
     client: Option<Client>,
@@ -22,7 +25,7 @@ impl CoCClient {
     ///
     /// A new instance of `CoCClient` initialized with the provided bearer token and client.
     ///
-    fn new(bearer_token: String, client: Option<Client>) -> Self {
+    pub fn new(bearer_token: String, client: Option<Client>) -> Self {
         let base_url = String::from("https://api.clashofclans.com");
 
         let version = String::from("v1");
@@ -34,7 +37,8 @@ impl CoCClient {
             None => {
                 let mut headers = header::HeaderMap::new();
 
-                let mut auth_value = header::HeaderValue::from_static("secret");
+                let mut auth_value =
+                    header::HeaderValue::from_str(&format!("Bearer {}", bearer_token)).unwrap();
 
                 auth_value.set_sensitive(true);
 
