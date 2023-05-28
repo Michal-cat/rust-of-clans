@@ -131,7 +131,7 @@ pub struct PlayerHouseElement {
 pub enum ClanType {
     #[serde(rename = "open")]
     Open,
-    #[serde(rename = "invite_only")]
+    #[serde(rename = "inviteOnly")]
     InviteOnly,
     #[serde(rename = "closed")]
     Closed,
