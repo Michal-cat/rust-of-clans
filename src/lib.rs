@@ -1,5 +1,6 @@
 pub mod models;
 pub mod requests;
+pub mod errors;
 
 use reqwest::{header, Client};
 
