@@ -10,3 +10,33 @@ Welcome to Rust of Clans, the ultimate Clash of Clans API client for Rust! 🎮 
 - **Leaderboard Rankings:** Get global or local rankings for players and clans, and track their progress in real-time.
 - **Achievements Unlocked:** Fetch information about achievements, both for individual players and clans, showcasing their accomplishments.
 - **In-depth Data Analysis:** Utilize comprehensive data sets to gain insights, visualize trends, and create stunning reports for your clan.
+
+## Usage
+
+```rust
+use rust_of_clans::CoCClient;
+
+#[tokio::main]
+async fn main() {
+    // Create a new Clash of Clans API client
+    let bearer_token = std::env::var("BEARER_TOKEN").expect("env var BEARER_TOKEN not set");
+    let coc_client = CoCClient::new(bearer_token.to_owned(), None);
+
+    // Get information about a clan
+    let clan_tag = "#CLAN_TAG";
+    let clan_info = coc_client.get_clan_information(clan_tag).await;
+
+    match clan_info {
+        Ok(clan) => {
+            // Process clan information
+            println!("Clan Name: {}", clan.name);
+            println!("Clan Level: {}", clan.clan_level);
+            // ...
+        }
+        Err(error) => {
+            // Handle the error
+            eprintln!("Error: {}", error);
+        }
+    }
+}
+```
