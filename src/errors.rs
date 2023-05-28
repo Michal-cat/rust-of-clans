@@ -4,16 +4,24 @@ use std::fmt;
 
 use serde::{Deserialize, Serialize};
 
+/// Represents various error types that can occur in the Clash of Clans client.
 pub enum CoCClientError {
+    /// Represents an error that occurred during a request.
     Request(reqwest::Error),
+    /// Represents an error that occurred during deserialization.
     Deserlisation(serde_json::Error),
+    /// Represents an error that occurred on the client side.
     ClientError(ClientError),
+    /// Represents an error that occurred on the server side.
     ServerError(ServerError),
+    /// Represents an error where the client is missing in the CoCClient.
     MissingClientError,
+    /// Represents an unknown error.
     UnkownError,
 }
 
 impl fmt::Display for CoCClientError {
+    /// Formats the `CoCClientError` as a string.
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             CoCClientError::Request(err) => write!(f, "Request error: {}", err),
@@ -26,6 +34,7 @@ impl fmt::Display for CoCClientError {
     }
 }
 
+/// Represents a client-side error in the Clash of Clans client.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ClientError {
     reason: String,
@@ -34,6 +43,7 @@ pub struct ClientError {
     detail: Option<HashMap<String, String>>,
 }
 
+/// Represents a server-side error in the Clash of Clans client.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ServerError {
     reason: String,
@@ -42,6 +52,7 @@ pub struct ServerError {
     detail: Option<HashMap<String, String>>,
 }
 
+/// Represents an unknown error.
 #[derive(Debug)]
 pub struct UnkownError {}
 
@@ -52,6 +63,7 @@ impl Error for ServerError {}
 impl Error for UnkownError {}
 
 impl fmt::Display for ClientError {
+    /// Formats the `ClientError` as a string.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
@@ -62,6 +74,7 @@ impl fmt::Display for ClientError {
 }
 
 impl fmt::Display for ServerError {
+    /// Formats the `ServerError` as a string.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
@@ -72,6 +85,7 @@ impl fmt::Display for ServerError {
 }
 
 impl fmt::Display for UnkownError {
+    /// Formats the `UnkownError` as a string.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "Unkown error")
     }
