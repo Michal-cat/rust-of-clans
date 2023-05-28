@@ -40,3 +40,13 @@ async fn main() {
     }
 }
 ```
+
+## Contributing
+
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+
+Before submitting a pull request, please ensure that your code adheres to the project's coding conventions and passes all tests.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
