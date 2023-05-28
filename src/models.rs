@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
+/// Represents a Clash of Clans clan.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Clan {
     #[serde(rename = "warLeague")]
@@ -55,6 +56,7 @@ pub struct Clan {
     pub clan_capital: ClanCapital,
 }
 
+/// Represents a member of a Clash of Clans clan.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanMember {
     pub league: League,
@@ -81,6 +83,7 @@ pub struct ClanMember {
     pub player_house: Option<PlayerHouse>,
 }
 
+/// Represents a league in Clash of Clans.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct League {
     pub name: String,
@@ -89,35 +92,41 @@ pub struct League {
     pub icon_urls: HashMap<String, String>,
 }
 
+/// Represents the builder base league of a Clash of Clans player.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct BuilderBaseLague {
     pub name: String,
     pub id: i64,
 }
 
+/// Represents the war league of a Clash of Clans clan.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WarLeague {
     pub name: String,
     pub id: i64,
 }
 
+/// Represents the capital league of a Clash of Clans clan.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CapitalLeague {
     pub name: String,
     pub id: i64,
 }
 
+/// Represents the player's house in Clash of Clans.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PlayerHouse {
     pub elements: Vec<PlayerHouseElement>,
 }
 
+/// Represents an element in the player's house in Clash of Clans.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PlayerHouseElement {
     pub id: i64,
     pub r#type: PlayerHouseElementType,
 }
 
+/// Represents the type of the Clash of Clans clan.
 #[derive(Debug, Serialize, Deserialize)]
 pub enum ClanType {
     #[serde(rename = "open")]
@@ -128,6 +137,7 @@ pub enum ClanType {
     Closed,
 }
 
+/// Represents the role of a member in a Clash of Clans clan.
 #[derive(Debug, Serialize, Deserialize)]
 pub enum ClanMemberRole {
     #[serde(rename = "not_member")]
@@ -142,6 +152,7 @@ pub enum ClanMemberRole {
     CoLeader,
 }
 
+/// Represents the type of an element in the player's house in Clash of Clans.
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PlayerHouseElementType {
     #[serde(rename = "ground")]
@@ -156,6 +167,7 @@ pub enum PlayerHouseElementType {
     Walls,
 }
 
+/// Represents the language of a Clash of Clans chat.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Language {
     pub name: String,
@@ -164,6 +176,7 @@ pub struct Language {
     pub language_code: String,
 }
 
+/// Represents the war frequency of a Clash of Clans clan.
 #[derive(Serialize, Deserialize, Debug)]
 pub enum WarFrequency {
     #[serde(rename = "unknown")]
@@ -182,6 +195,7 @@ pub enum WarFrequency {
     Any,
 }
 
+/// Represents a label in a Clash of Clans clan.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Label {
     pub name: String,
@@ -190,6 +204,7 @@ pub struct Label {
     pub badge_urls: Option<HashMap<String, String>>,
 }
 
+/// Represents the clan capital in Clash of Clans.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanCapital {
     #[serde(rename = "capitalHallLevel")]
@@ -197,6 +212,7 @@ pub struct ClanCapital {
     pub districts: Vec<ClanDistrictData>,
 }
 
+/// Represents a district in the clan capital of Clash of Clans.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanDistrictData {
     pub name: String,
@@ -205,6 +221,7 @@ pub struct ClanDistrictData {
     pub district_hall_level: i64,
 }
 
+/// Represents the location of a Clash of Clans clan or player.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Location {
     #[serde(rename = "localizedName")]
