@@ -140,7 +140,7 @@ pub enum ClanType {
 /// Represents the role of a member in a Clash of Clans clan.
 #[derive(Debug, Serialize, Deserialize)]
 pub enum ClanMemberRole {
-    #[serde(rename = "not_member")]
+    #[serde(rename = "notMember")]
     NotMember,
     #[serde(rename = "member")]
     Member,
@@ -183,11 +183,11 @@ pub enum WarFrequency {
     Unknown,
     #[serde(rename = "always")]
     Always,
-    #[serde(rename = "more_than_once_per_week")]
+    #[serde(rename = "moreThanOncePerWeek")]
     MoreThanOncePerWeek,
-    #[serde(rename = "once_per_week")]
+    #[serde(rename = "oncePerWeek")]
     OncePerWeek,
-    #[serde(rename = "less_than_once_per_week")]
+    #[serde(rename = "lessThanOncePerWeek")]
     LessThanOncePerWeek,
     #[serde(rename = "never")]
     Never,
