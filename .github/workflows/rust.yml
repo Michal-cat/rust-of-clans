@@ -8,6 +8,7 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
 
 jobs:
   build:
