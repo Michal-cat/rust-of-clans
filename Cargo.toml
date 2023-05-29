@@ -1,10 +1,11 @@
 [package]
 name = "rust_of_clans"
-version = "0.3.0"
+version = "0.3.1a"
 edition = "2021"
 authors = ["Mikkel Aas <aa.mikkel2902@gmail.com>"]
 description = "A Clash of Clans API client"
 license = "MIT"
+repository = "https://github.com/MikkelAas/rust-of-clans"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
