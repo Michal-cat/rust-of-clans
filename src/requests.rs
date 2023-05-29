@@ -123,4 +123,30 @@ impl CoCClient {
 
         CoCClient::handle_response(client_response).await
     }
+
+    /// Retrieves information about a clan war league war based on the specified war tag.
+    ///
+    /// # Arguments
+    ///
+    /// * `war_tag` - The tag of the war for which to retrieve information.
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing the clan war league group information as `ClanWarLeagueGroup` on success,
+    /// or a `CoCClientError` if there was an error in the request or response.
+    pub async fn get_clan_war_league_war(self, war_tag: &str) -> Result<ClanWarLeagueGroup, CoCClientError> {
+        let encoded_war_tag = encode(&war_tag).into_owned();
+
+        let path = format!(
+            "{}/clanwarleagues/wars/{}",
+            self.url, encoded_war_tag
+        );
+
+        let client_response = match self.send_get_request(&path).await {
+            Ok(client_response) => client_response,
+            Err(err) => return Err(err),
+        };
+
+        CoCClient::handle_response(client_response).await
+    }
 }
