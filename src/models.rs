@@ -233,3 +233,51 @@ pub struct Location {
     #[serde(rename = "countryCode")]
     pub country_code: String,
 }
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanWarLeagueGroup {
+    tag: String,
+    state: ClanWarLeagueGroupState,
+    season: String,
+    clans: Vec<ClanWarLeagueClan>,
+    rounds: Vec<ClanWarLeagueRound>
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub enum ClanWarLeagueGroupState {
+    #[serde(rename = "groupNotFound")]
+    GroupNotFound,
+    #[serde(rename = "notInWar")]
+    NotInWar,
+    #[serde(rename = "preparation")]
+    Preparation,
+    #[serde(rename = "war")]
+    War,
+    #[serde(rename = "ended")]
+    Ended,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanWarLeagueClan{
+    tag: String,
+    #[serde(rename = "clanLevel")]
+    clan_level: i64,
+    name: String,
+    members: Vec<ClanWarLeagueClanMember>,
+    #[serde(rename = "badgeUrls")]
+    badge_urls: HashMap<String, String>
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanWarLeagueClanMember {
+    tag: String,
+    #[serde(rename = "townHallLevel")]
+    town_hall_level: i64,
+    name: String
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanWarLeagueRound {
+    #[serde(rename = "warTags")]
+    war_tags: Vec<String>
+}
