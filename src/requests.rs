@@ -59,13 +59,13 @@ impl CoCClient {
                 let error_body: ClientError =
                     serde_json::from_str(&response_text).map_err(CoCClientError::Deserlisation)?;
 
-                return Err(CoCClientError::ClientError(error_body));
+                Err(CoCClientError::ClientError(error_body))
             }
             StatusCode::INTERNAL_SERVER_ERROR | StatusCode::SERVICE_UNAVAILABLE => {
                 let error_body: ServerError =
                     serde_json::from_str(&response_text).map_err(CoCClientError::Deserlisation)?;
 
-                return Err(CoCClientError::ServerError(error_body));
+                Err(CoCClientError::ServerError(error_body))
             }
             _ => Err(CoCClientError::UnkownError),
         }
@@ -102,13 +102,13 @@ impl CoCClient {
                 let error_body: ClientError =
                     serde_json::from_str(&response_text).map_err(CoCClientError::Deserlisation)?;
 
-                return Err(CoCClientError::ClientError(error_body));
+                Err(CoCClientError::ClientError(error_body))
             }
             StatusCode::INTERNAL_SERVER_ERROR | StatusCode::SERVICE_UNAVAILABLE => {
                 let error_body: ServerError =
                     serde_json::from_str(&response_text).map_err(CoCClientError::Deserlisation)?;
 
-                return Err(CoCClientError::ServerError(error_body));
+                Err(CoCClientError::ServerError(error_body))
             }
             _ => Err(CoCClientError::UnkownError),
         }
