@@ -236,11 +236,11 @@ pub struct Location {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanWarLeagueGroup {
-    tag: String,
+    tag: Option<String>,
     state: ClanWarLeagueGroupState,
-    season: String,
-    clans: Vec<ClanWarLeagueClan>,
-    rounds: Vec<ClanWarLeagueRound>,
+    season: Option<String>,
+    clans: Option<Vec<ClanWarLeagueClan>>,
+    rounds: Option<Vec<ClanWarLeagueRound>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -283,6 +283,23 @@ pub struct ClanWarLeagueRound {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
+pub struct ClanWarLog {
+    items: Vec<ClanWarLogEntry>,
+    paging: Option<Paging>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Paging {
+    cursors: Cursors,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Cursors {
+    before: Option<String>,
+    after: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ClanWarLogEntry {
     clan: WarClan,
     #[serde(rename = "teamSize")]
@@ -292,24 +309,24 @@ pub struct ClanWarLogEntry {
     opponent: WarClan,
     #[serde(rename = "endTime")]
     end_time: String,
-    result: ClanWarResult,
+    result: Option<ClanWarResult>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WarClan {
     #[serde(rename = "destructionPercentage")]
     destruction_percentage: f64,
-    tag: String,
-    name: String,
+    tag: Option<String>,
+    name: Option<String>,
     #[serde(rename = "badgeUrls")]
     badge_urls: HashMap<String, String>,
     #[serde(rename = "clanLevel")]
     clan_level: i64,
-    attacks: i64,
+    attacks: Option<i64>,
     stars: i64,
     #[serde(rename = "expEarned")]
-    exp_earned: i64,
-    members: Vec<ClanWarMember>,
+    exp_earned: Option<i64>,
+    members: Option<Vec<ClanWarMember>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
