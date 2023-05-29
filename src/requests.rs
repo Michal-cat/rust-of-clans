@@ -37,7 +37,7 @@ impl CoCClient {
         }
     }
 
-    pub async fn send_get_request(self, path: &str) -> Result<ClientResponse, CoCClientError> {
+    async fn send_get_request(self, path: &str) -> Result<ClientResponse, CoCClientError> {
         let client = self.client.ok_or(CoCClientError::MissingClientError)?;
         let response = client
             .get(path)
