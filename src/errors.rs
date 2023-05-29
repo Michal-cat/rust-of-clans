@@ -37,19 +37,27 @@ impl fmt::Display for CoCClientError {
 /// Represents a client-side error in the Clash of Clans client.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ClientError {
-    reason: String,
-    message: String,
-    r#type: Option<String>,
-    detail: Option<HashMap<String, String>>,
+    /// A string that describes the reason for the client error.
+    pub reason: String,
+    /// A string that provides additional information about the client error.
+    pub message: String,
+    /// An optional string that specifies the type of the client error.
+    pub r#type: Option<String>,
+    /// An optional HashMap that contains additional details about the client error.
+    pub detail: Option<HashMap<String, String>>,
 }
 
 /// Represents a server-side error in the Clash of Clans client.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ServerError {
-    reason: String,
-    message: String,
-    r#type: Option<String>,
-    detail: Option<HashMap<String, String>>,
+    /// A string that describes the reason for the server error.
+    pub reason: String,
+    /// A string that provides additional information about the server error.
+    pub message: String,
+    /// An optional string that specifies the type of the server error.
+    pub r#type: Option<String>,
+    /// An optional HashMap that contains additional details about the server error.
+    pub detail: Option<HashMap<String, String>>,
 }
 
 /// Represents an unknown error.
