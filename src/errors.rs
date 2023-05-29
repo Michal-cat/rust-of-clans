@@ -40,7 +40,7 @@ pub struct ClientError {
     /// A string that describes the reason for the client error.
     pub reason: String,
     /// A string that provides additional information about the client error.
-    pub message: String,
+    pub message: Option<String>,
     /// An optional string that specifies the type of the client error.
     pub r#type: Option<String>,
     /// An optional HashMap that contains additional details about the client error.
@@ -53,7 +53,7 @@ pub struct ServerError {
     /// A string that describes the reason for the server error.
     pub reason: String,
     /// A string that provides additional information about the server error.
-    pub message: String,
+    pub message: Option<String>,
     /// An optional string that specifies the type of the server error.
     pub r#type: Option<String>,
     /// An optional HashMap that contains additional details about the server error.
@@ -75,7 +75,7 @@ impl fmt::Display for ClientError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Client error: Reason={}, Message={}, Type={:?}, Detail={:?}",
+            "Client error: Reason={}, Message={:?}, Type={:?}, Detail={:?}",
             self.reason, self.message, self.r#type, self.detail
         )
     }
@@ -86,7 +86,7 @@ impl fmt::Display for ServerError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Server error: Reason={}, Message={}, Type={:?}, Detail={:?}",
+            "Server error: Reason={}, Message={:?}, Type={:?}, Detail={:?}",
             self.reason, self.message, self.r#type, self.detail
         )
     }
