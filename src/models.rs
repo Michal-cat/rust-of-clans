@@ -240,7 +240,7 @@ pub struct ClanWarLeagueGroup {
     state: ClanWarLeagueGroupState,
     season: String,
     clans: Vec<ClanWarLeagueClan>,
-    rounds: Vec<ClanWarLeagueRound>
+    rounds: Vec<ClanWarLeagueRound>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -258,14 +258,14 @@ pub enum ClanWarLeagueGroupState {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct ClanWarLeagueClan{
+pub struct ClanWarLeagueClan {
     tag: String,
     #[serde(rename = "clanLevel")]
     clan_level: i64,
     name: String,
     members: Vec<ClanWarLeagueClanMember>,
     #[serde(rename = "badgeUrls")]
-    badge_urls: HashMap<String, String>
+    badge_urls: HashMap<String, String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -273,11 +273,79 @@ pub struct ClanWarLeagueClanMember {
     tag: String,
     #[serde(rename = "townHallLevel")]
     town_hall_level: i64,
-    name: String
+    name: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanWarLeagueRound {
     #[serde(rename = "warTags")]
-    war_tags: Vec<String>
+    war_tags: Vec<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanWarLogEntry {
+    clan: WarClan,
+    #[serde(rename = "teamSize")]
+    team_size: i64,
+    #[serde(rename = "attacksPerMember")]
+    attacks_per_member: i64,
+    opponent: WarClan,
+    #[serde(rename = "endTime")]
+    end_time: String,
+    result: ClanWarResult,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct WarClan {
+    #[serde(rename = "destructionPercentage")]
+    destruction_percentage: f64,
+    tag: String,
+    name: String,
+    #[serde(rename = "badgeUrls")]
+    badge_urls: HashMap<String, String>,
+    #[serde(rename = "clanLevel")]
+    clan_level: i64,
+    attacks: i64,
+    stars: i64,
+    #[serde(rename = "expEarned")]
+    exp_earned: i64,
+    members: Vec<ClanWarMember>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanWarMember {
+    tag: String,
+    name: String,
+    #[serde(rename = "mapPosition")]
+    map_position: i64,
+    #[serde(rename = "townhallLevel")]
+    town_hall_level: i64,
+    #[serde(rename = "opponentAttacks")]
+    opponent_attacks: i64,
+    #[serde(rename = "bestOpponentAttack")]
+    best_opponent_attack: ClanWarAttack,
+    attacks: Vec<ClanWarAttack>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanWarAttack {
+    order: i64,
+    #[serde(rename = "attackerTag")]
+    attacker_tag: String,
+    #[serde(rename = "defenderTag")]
+    defender_tag: String,
+    stars: i64,
+    #[serde(rename = "destructionPercentage")]
+    destruction_percentage: i64,
+    duration: i64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub enum ClanWarResult {
+    #[serde(rename = "lose")]
+    Lose,
+    #[serde(rename = "win")]
+    NotInWar,
+    #[serde(rename = "tie")]
+    Preparation,
 }
