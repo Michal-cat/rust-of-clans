@@ -10,6 +10,16 @@ pub struct ClientResponse {
 }
 
 impl CoCClient {
+    /// Handles the response from the client and deserializes it into the specified type `T`.
+    ///
+    /// # Arguments
+    ///
+    /// * `client_response` - The response received from the HTTP client.
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing the deserialized response as `T` on success,
+    /// or a `CoCClientError` if there was an error in deserialization or the response status code is unexpected.
     async fn handle_response<T>(client_response: ClientResponse) -> Result<T, CoCClientError>
     where
         T: serde::de::DeserializeOwned,
@@ -37,6 +47,16 @@ impl CoCClient {
         }
     }
 
+    /// Sends a GET request to the specified path and returns the client response.
+    ///
+    /// # Arguments
+    ///
+    /// * `path` - The path to which the GET request should be sent.
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing the client response on success, or a `CoCClientError`
+    /// if there was an error sending the request or receiving the response.
     async fn send_get_request(self, path: &str) -> Result<ClientResponse, CoCClientError> {
         let client = self.client.ok_or(CoCClientError::MissingClientError)?;
         let response = client
@@ -52,6 +72,16 @@ impl CoCClient {
         Ok(client_response)
     }
 
+    /// Retrieves clan information for the specified clan tag.
+    ///
+    /// # Arguments
+    ///
+    /// * `clan_tag` - The tag of the clan for which to retrieve information.
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing the clan information as `Clan` on success,
+    /// or a `CoCClientError` if there was an error in the request or response.
     pub async fn get_clan_information(self: Self, clan_tag: &str) -> Result<Clan, CoCClientError> {
         let encoded_clan_tag = encode(&clan_tag).into_owned();
 
@@ -65,6 +95,16 @@ impl CoCClient {
         CoCClient::handle_response(client_response).await
     }
 
+    /// Retrieves the current war league group for the specified clan tag.
+    ///
+    /// # Arguments
+    ///
+    /// * `clan_tag` - The tag of the clan for which to retrieve the current war league group.
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing the current war league group as `ClanWarLeagueGroup` on success,
+    /// or a `CoCClientError` if there was an error in the request or response.
     pub async fn get_current_war_league_group(
         self,
         clan_tag: &str,
