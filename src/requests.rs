@@ -183,6 +183,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
     async fn test_get_clan_information() {
         let client = set_up_client();
 
@@ -198,6 +199,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
     async fn test_get_current_war_league_group() {
         let client = set_up_client();
 
@@ -217,6 +219,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
     async fn test_get_clan_war_league_war() {
         let client = set_up_client();
 
@@ -232,6 +235,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
     async fn test_get_clan_war_log() {
         let client = set_up_client();
 
