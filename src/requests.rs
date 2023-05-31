@@ -1,5 +1,5 @@
 use crate::errors::{ClientError, CoCClientError, ServerError};
-use crate::models::{Clan, ClanWarLeagueGroup};
+use crate::models::{Clan, ClanWarLeagueGroup, ClanWarLog};
 use crate::CoCClient;
 use reqwest::StatusCode;
 use urlencoding::encode;
@@ -134,13 +134,13 @@ impl CoCClient {
     ///
     /// Returns a `Result` containing the clan war league group information as `ClanWarLeagueGroup` on success,
     /// or a `CoCClientError` if there was an error in the request or response.
-    pub async fn get_clan_war_league_war(self, war_tag: &str) -> Result<ClanWarLeagueGroup, CoCClientError> {
+    pub async fn get_clan_war_league_war(
+        self,
+        war_tag: &str,
+    ) -> Result<ClanWarLeagueGroup, CoCClientError> {
         let encoded_war_tag = encode(&war_tag).into_owned();
 
-        let path = format!(
-            "{}/clanwarleagues/wars/{}",
-            self.url, encoded_war_tag
-        );
+        let path = format!("{}/clanwarleagues/wars/{}", self.url, encoded_war_tag);
 
         let client_response = match self.send_get_request(&path).await {
             Ok(client_response) => client_response,
@@ -148,5 +148,105 @@ impl CoCClient {
         };
 
         CoCClient::handle_response(client_response).await
+    }
+
+    pub async fn get_clan_war_log(
+        self: Self,
+        clan_tag: &str,
+    ) -> Result<ClanWarLog, CoCClientError> {
+        let encoded_clan_tag = encode(&clan_tag).into_owned();
+
+        let path = format!("{}/clans/{}/warlog", self.url, encoded_clan_tag);
+
+        let client_response = match self.send_get_request(&path).await {
+            Ok(client_response) => {
+                println!("CLIENT RESPONSE: {}", client_response.text);
+                client_response
+            }
+            Err(err) => return Err(err),
+        };
+
+        CoCClient::handle_response(client_response).await
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    static CLAN_TAG: &str = "#2LUGVU89Q";
+
+    fn set_up_client() -> CoCClient {
+        let bearer_token = std::env::var("BEARER_TOKEN").expect("env var BEARER_TOKEN not set");
+
+        CoCClient::new(bearer_token, None)
+    }
+
+    #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
+    async fn test_get_clan_information() {
+        let client = set_up_client();
+
+        match client.get_clan_information(CLAN_TAG).await {
+            Ok(_) => {
+                assert!(true);
+            }
+            Err(err) => {
+                println!("{}", err);
+                assert!(false);
+            }
+        };
+    }
+
+    #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
+    async fn test_get_current_war_league_group() {
+        let client = set_up_client();
+
+        match client.get_current_war_league_group(CLAN_TAG).await {
+            Ok(_) => {
+                assert!(true);
+            }
+            Err(err) => match err {
+                // Assert true on any client error, should just assert true on not found error.
+                CoCClientError::ClientError(_) => assert!(true),
+                _ => {
+                    println!("{}", err);
+                    assert!(false)
+                }
+            },
+        };
+    }
+
+    #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
+    async fn test_get_clan_war_league_war() {
+        let client = set_up_client();
+
+        match client.get_clan_war_league_war(CLAN_TAG).await {
+            Ok(_) => {
+                assert!(true);
+            }
+            Err(err) => {
+                println!("{}", err);
+                assert!(false);
+            }
+        };
+    }
+
+    #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
+    async fn test_get_clan_war_log() {
+        let client = set_up_client();
+
+        match client.get_clan_war_log(CLAN_TAG).await {
+            Ok(_) => {
+                assert!(true);
+            }
+            Err(err) => {
+                println!("{}", err);
+                assert!(false);
+            }
+        };
     }
 }
