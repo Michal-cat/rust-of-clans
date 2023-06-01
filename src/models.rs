@@ -236,11 +236,11 @@ pub struct Location {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanWarLeagueGroup {
-    tag: Option<String>,
-    state: ClanWarLeagueGroupState,
-    season: Option<String>,
-    clans: Option<Vec<ClanWarLeagueClan>>,
-    rounds: Option<Vec<ClanWarLeagueRound>>,
+    pub tag: Option<String>,
+    pub state: ClanWarLeagueGroupState,
+    pub season: Option<String>,
+    pub clans: Option<Vec<ClanWarLeagueClan>>,
+    pub rounds: Option<Vec<ClanWarLeagueRound>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -259,102 +259,102 @@ pub enum ClanWarLeagueGroupState {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanWarLeagueClan {
-    tag: String,
+    pub tag: String,
     #[serde(rename = "clanLevel")]
-    clan_level: i64,
-    name: String,
-    members: Vec<ClanWarLeagueClanMember>,
+    pub clan_level: i64,
+    pub name: String,
+    pub members: Vec<ClanWarLeagueClanMember>,
     #[serde(rename = "badgeUrls")]
-    badge_urls: HashMap<String, String>,
+    pub badge_urls: HashMap<String, String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanWarLeagueClanMember {
-    tag: String,
+    pub tag: String,
     #[serde(rename = "townHallLevel")]
-    town_hall_level: i64,
-    name: String,
+    pub town_hall_level: i64,
+    pub name: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanWarLeagueRound {
     #[serde(rename = "warTags")]
-    war_tags: Vec<String>,
+    pub war_tags: Vec<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanWarLog {
-    items: Vec<ClanWarLogEntry>,
-    paging: Option<Paging>,
+    pub items: Vec<ClanWarLogEntry>,
+    pub paging: Option<Paging>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Paging {
-    cursors: Cursors,
+    pub cursors: Cursors,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Cursors {
-    before: Option<String>,
-    after: Option<String>,
+    pub before: Option<String>,
+    pub after: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanWarLogEntry {
-    clan: WarClan,
+    pub clan: WarClan,
     #[serde(rename = "teamSize")]
-    team_size: i64,
+    pub team_size: i64,
     #[serde(rename = "attacksPerMember")]
-    attacks_per_member: i64,
-    opponent: WarClan,
+    pub attacks_per_member: i64,
+    pub opponent: WarClan,
     #[serde(rename = "endTime")]
-    end_time: String,
-    result: Option<ClanWarResult>,
+    pub end_time: String,
+    pub result: Option<ClanWarResult>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WarClan {
     #[serde(rename = "destructionPercentage")]
-    destruction_percentage: f64,
-    tag: Option<String>,
-    name: Option<String>,
+    pub destruction_percentage: f64,
+    pub tag: Option<String>,
+    pub name: Option<String>,
     #[serde(rename = "badgeUrls")]
-    badge_urls: HashMap<String, String>,
+    pub badge_urls: HashMap<String, String>,
     #[serde(rename = "clanLevel")]
-    clan_level: i64,
-    attacks: Option<i64>,
-    stars: i64,
+    pub clan_level: i64,
+    pub attacks: Option<i64>,
+    pub stars: i64,
     #[serde(rename = "expEarned")]
-    exp_earned: Option<i64>,
-    members: Option<Vec<ClanWarMember>>,
+    pub exp_earned: Option<i64>,
+    pub members: Option<Vec<ClanWarMember>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanWarMember {
-    tag: String,
-    name: String,
+    pub tag: String,
+    pub name: String,
     #[serde(rename = "mapPosition")]
-    map_position: i64,
+    pub map_position: i64,
     #[serde(rename = "townhallLevel")]
-    town_hall_level: i64,
+    pub town_hall_level: i64,
     #[serde(rename = "opponentAttacks")]
-    opponent_attacks: i64,
+    pub opponent_attacks: i64,
     #[serde(rename = "bestOpponentAttack")]
-    best_opponent_attack: ClanWarAttack,
-    attacks: Vec<ClanWarAttack>,
+    pub best_opponent_attack: ClanWarAttack,
+    pub attacks: Vec<ClanWarAttack>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ClanWarAttack {
-    order: i64,
+    pub order: i64,
     #[serde(rename = "attackerTag")]
-    attacker_tag: String,
+    pub attacker_tag: String,
     #[serde(rename = "defenderTag")]
-    defender_tag: String,
-    stars: i64,
+    pub defender_tag: String,
+    pub stars: i64,
     #[serde(rename = "destructionPercentage")]
-    destruction_percentage: i64,
-    duration: i64,
+    pub destruction_percentage: i64,
+    pub duration: i64,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -365,4 +365,45 @@ pub enum ClanWarResult {
     NotInWar,
     #[serde(rename = "tie")]
     Preparation,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanWar {
+    pub clan: WarClan,
+    #[serde(rename = "teamSize")]
+    pub team_size: Option<i64>,
+    #[serde(rename = "attacksPerMember")]
+    pub attacks_per_member: Option<i64>,
+    pub opponent: WarClan,
+    #[serde(rename = "startTime")]
+    pub start_time: Option<String>,
+    pub state: ClanWarState,
+    #[serde(rename = "endTime")]
+    pub end_time: Option<String>,
+    #[serde(rename = "preparationStartTime")]
+    pub preparation_start_time: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub enum ClanWarState {
+    #[serde(rename = "clanNotFound")]
+    ClanNotFound,
+    #[serde(rename = "accessDenied")]
+    AccessDenied,
+    #[serde(rename = "notInWar")]
+    NotInWar,
+    #[serde(rename = "inMatchmaking")]
+    InMatchMaking,
+    #[serde(rename = "enterWar")]
+    EnterWar,
+    #[serde(rename = "matched")]
+    Matched,
+    #[serde(rename = "preparation")]
+    Preparation,
+    #[serde(rename = "war")]
+    War,
+    #[serde(rename = "inWar")]
+    InWar,
+    #[serde(rename = "ended")]
+    Ended,
 }
