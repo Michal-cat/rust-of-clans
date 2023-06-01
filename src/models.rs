@@ -371,17 +371,17 @@ pub enum ClanWarResult {
 pub struct ClanWar {
     pub clan: WarClan,
     #[serde(rename = "teamSize")]
-    pub team_size: i64,
+    pub team_size: Option<i64>,
     #[serde(rename = "attacksPerMember")]
-    pub attacks_per_member: i64,
+    pub attacks_per_member: Option<i64>,
     pub opponent: WarClan,
     #[serde(rename = "startTime")]
-    pub start_time: String,
+    pub start_time: Option<String>,
     pub state: ClanWarState,
     #[serde(rename = "endTime")]
-    pub end_time: String,
+    pub end_time: Option<String>,
     #[serde(rename = "preparationStartTime")]
-    pub preparation_start_time: String,
+    pub preparation_start_time: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
