@@ -413,3 +413,111 @@ pub struct ClanMembers {
     pub items: Vec<ClanMember>,
     pub paging: Option<Paging>,
 }
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct CapitalRaidSeasons {
+    pub items: Vec<ClanCapitalRaidSeason>,
+    pub paging: Option<Paging>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanCapitalRaidSeason {
+    #[serde(rename = "attackLog")]
+    pub attack_log: Vec<ClanCapitalRaidSeasonAttackLogEntry>,
+    #[serde(rename = "defenseLog")]
+    pub defense_log: Vec<ClanCapitalRaidSeasonDefenseLogEntry>,
+    pub state: String,
+    #[serde(rename = "startTime")]
+    pub start_rime: String,
+    #[serde(rename = "endTime")]
+    pub end_time: String,
+    #[serde(rename = "capitalTotalLoot")]
+    pub capital_total_loot: i64,
+    #[serde(rename = "raidsCompleted")]
+    pub raids_completed: i64,
+    #[serde(rename = "totalAttacks")]
+    pub total_attacks: i64,
+    #[serde(rename = "enemyDistrictsDestroyed")]
+    pub enemy_districts_destroyed: i64,
+    #[serde(rename = "offensiveReward")]
+    pub offensive_reward: i64,
+    #[serde(rename = "defensiveReward")]
+    pub defensive_reward: i64,
+    pub members: Option<Vec<ClanCapitalRaidSeasonMember>>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanCapitalRaidSeasonAttackLogEntry {
+    pub defender: ClanCapitalRaidSeasonClanInfo,
+    #[serde(rename = "attackCount")]
+    pub attack_count: i64,
+    #[serde(rename = "districtCount")]
+    pub district_count: i64,
+    #[serde(rename = "districtsDestroyed")]
+    pub districts_destroyed: i64,
+    pub districts: Vec<ClanCapitalRaidSeasonDistrict>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanCapitalRaidSeasonClanInfo {
+    pub tag: String,
+    pub name: String,
+    pub level: i64,
+    #[serde(rename = "badgeUrls")]
+    pub badge_urls: HashMap<String, String>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanCapitalRaidSeasonDistrict {
+    pub stars: i64,
+    pub name: String,
+    pub id: i64,
+    #[serde(rename = "destructionPercent")]
+    pub destruction_percent: i64,
+    #[serde(rename = "attackCount")]
+    pub attack_count: i64,
+    #[serde(rename = "totalLooted")]
+    pub total_looted: i64,
+    pub attacks: Option<Vec<ClanCapitalRaidSeasonAttack>>,
+    #[serde(rename = "districtHallLevel")]
+    pub district_hall_level: i64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanCapitalRaidSeasonAttack {
+    pub attacker: ClanCapitalRaidSeasonAttacker,
+    #[serde(rename = "destructionPercent")]
+    pub destruction_percent: i64,
+    pub stars: i64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanCapitalRaidSeasonAttacker {
+    pub tag: String,
+    pub name: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanCapitalRaidSeasonMember {
+    pub tag: String,
+    pub name: String,
+    pub attacks: i64,
+    #[serde(rename = "attackLimit")]
+    pub attack_limit: i64,
+    #[serde(rename = "bonusAttackLimit")]
+    pub bonus_attack_limit: i64,
+    #[serde(rename = "capitalResourcesLooted")]
+    pub capital_resources_looted: i64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanCapitalRaidSeasonDefenseLogEntry {
+    pub attacker: ClanCapitalRaidSeasonClanInfo,
+    #[serde(rename = "attackCount")]
+    pub attack_count: i64,
+    #[serde(rename = "districtCount")]
+    pub district_count: i64,
+    #[serde(rename = "districtsDestroyed")]
+    pub districts_destroyed: i64,
+    pub districts: Vec<ClanCapitalRaidSeasonDistrict>,
+}
