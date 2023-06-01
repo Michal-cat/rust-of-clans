@@ -407,3 +407,9 @@ pub enum ClanWarState {
     #[serde(rename = "ended")]
     Ended,
 }
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanMembers {
+    pub items: Vec<ClanMember>,
+    pub paging: Option<Paging>,
+}

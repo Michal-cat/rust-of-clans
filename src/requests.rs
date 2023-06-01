@@ -1,5 +1,5 @@
 use crate::errors::{ClientError, CoCClientError, ServerError};
-use crate::models::{Clan, ClanWar, ClanWarLeagueGroup, ClanWarLog};
+use crate::models::{Clan, ClanMembers, ClanWar, ClanWarLeagueGroup, ClanWarLog};
 use crate::CoCClient;
 use reqwest::StatusCode;
 use urlencoding::encode;
@@ -181,6 +181,22 @@ impl CoCClient {
 
         CoCClient::handle_response(client_response).await
     }
+
+    pub async fn get_clan_members(
+        self: Self,
+        clan_tag: &str,
+    ) -> Result<ClanMembers, CoCClientError> {
+        let encoded_clan_tag = encode(&clan_tag).into_owned();
+
+        let path = format!("{}/clans/{}/members", self.url, encoded_clan_tag);
+
+        let client_response = match self.send_get_request(&path).await {
+            Ok(client_response) => client_response,
+            Err(err) => return Err(err),
+        };
+
+        CoCClient::handle_response(client_response).await
+    }
 }
 
 #[cfg(test)]
@@ -269,6 +285,22 @@ mod tests {
         let client = set_up_client();
 
         match client.get_current_clan_war(CLAN_TAG).await {
+            Ok(_) => {
+                assert!(true);
+            }
+            Err(err) => {
+                println!("{}", err);
+                assert!(false);
+            }
+        };
+    }
+
+    #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
+    async fn test_clan_members() {
+        let client = set_up_client();
+
+        match client.get_clan_members(CLAN_TAG).await {
             Ok(_) => {
                 assert!(true);
             }
