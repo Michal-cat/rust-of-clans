@@ -6,6 +6,16 @@ use crate::client::CoCClient;
 use super::models::Player;
 
 impl CoCClient {
+    /// Retrieves player information for the specified player tag.
+    ///
+    /// # Arguments
+    ///
+    /// * `player_tag` - The tag of the player for which to retrieve information.
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing the player information as `Player` on success,
+    /// or a `CoCClientError` if there was an error in the request or response.
     pub async fn get_player_info(self: Self, player_tag: &str) -> Result<Player, CoCClientError> {
         let encoded_player_tag = encode(&player_tag).into_owned();
 

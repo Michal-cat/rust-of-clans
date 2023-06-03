@@ -87,6 +87,17 @@ impl CoCClient {
         CoCClient::handle_response(client_response).await
     }
 
+    /// Retrieves the clan war log for the specified clan tag.
+    ///
+    /// # Arguments
+    ///
+    /// * `clan_tag` - The tag of the clan for which to retrieve the war log.
+    /// * `params` - Optional parameters for filtering the war log (e.g., limit, before, after).
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing the clan war log as `ClanWarLog` on success,
+    /// or a `CoCClientError` if there was an error in the request or response.
     pub async fn get_clan_war_log(
         self: Self,
         clan_tag: &str,
@@ -104,6 +115,16 @@ impl CoCClient {
         CoCClient::handle_response(client_response).await
     }
 
+    /// Retrieves information about the current clan war for the specified clan tag.
+    ///
+    /// # Arguments
+    ///
+    /// * `clan_tag` - The tag of the clan for which to retrieve the current war information.
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing the current clan war information as `ClanWar` on success,
+    /// or a `CoCClientError` if there was an error in the request or response.
     pub async fn get_current_clan_war(
         self: Self,
         clan_tag: &str,
@@ -120,6 +141,17 @@ impl CoCClient {
         CoCClient::handle_response(client_response).await
     }
 
+    /// Retrieves the members of the specified clan.
+    ///
+    /// # Arguments
+    ///
+    /// * `clan_tag` - The tag of the clan for which to retrieve the members.
+    /// * `params` - Optional parameters for filtering the clan members (e.g., limit, order).
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing the clan members as `ClanMembers` on success,
+    /// or a `CoCClientError` if there was an error in the request or response.
     pub async fn get_clan_members(
         self: Self,
         clan_tag: &str,
@@ -137,6 +169,17 @@ impl CoCClient {
         CoCClient::handle_response(client_response).await
     }
 
+    /// Retrieves the capital raid seasons for the specified clan tag.
+    ///
+    /// # Arguments
+    ///
+    /// * `clan_tag` - The tag of the clan for which to retrieve the capital raid seasons.
+    /// * `params` - Optional parameters for filtering the capital raid seasons (e.g., limit, start time).
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing the capital raid seasons as `CapitalRaidSeasons` on success,
+    /// or a `CoCClientError` if there was an error in the request or response.
     pub async fn get_clan_capital_raid_seasons(
         self: Self,
         clan_tag: &str,
