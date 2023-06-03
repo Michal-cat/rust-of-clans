@@ -1,6 +1,6 @@
 use crate::errors::{ClientError, CoCClientError, ServerError};
 use crate::models::{
-    CapitalRaidSeasons, Clan, ClanMembers, ClanWar, ClanWarLeagueGroup, ClanWarLog,
+    CapitalRaidSeasons, Clan, ClanMembers, ClanWar, ClanWarLeagueGroup, ClanWarLog, Player,
 };
 use crate::CoCClient;
 use reqwest::StatusCode;
@@ -215,6 +215,19 @@ impl CoCClient {
 
         CoCClient::handle_response(client_response).await
     }
+
+    pub async fn get_player_info(self: Self, player_tag: &str) -> Result<Player, CoCClientError> {
+        let encoded_player_tag = encode(&player_tag).into_owned();
+
+        let path = format!("{}/players/{}", self.url, encoded_player_tag);
+
+        let client_response = match self.send_get_request(&path).await {
+            Ok(client_response) => client_response,
+            Err(err) => return Err(err),
+        };
+
+        CoCClient::handle_response(client_response).await
+    }
 }
 
 #[cfg(test)]
@@ -222,6 +235,8 @@ mod tests {
     use super::*;
 
     static CLAN_TAG: &str = "#2LUGVU89Q";
+
+    static PLAYER_TAG: &str = "#2288UCQJ";
 
     fn set_up_client() -> CoCClient {
         let bearer_token = std::env::var("BEARER_TOKEN").expect("env var BEARER_TOKEN not set");
@@ -335,6 +350,22 @@ mod tests {
         let client = set_up_client();
 
         match client.get_clan_capital_raid_seasons(CLAN_TAG).await {
+            Ok(_) => {
+                assert!(true);
+            }
+            Err(err) => {
+                println!("{}", err);
+                assert!(false);
+            }
+        };
+    }
+
+    #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
+    async fn test_get_player_info() {
+        let client = set_up_client();
+
+        match client.get_player_info(PLAYER_TAG).await {
             Ok(_) => {
                 assert!(true);
             }
