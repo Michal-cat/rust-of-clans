@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use urlencoding::encode;
 
 use crate::{client::CoCClient, errors::CoCClientError};
@@ -22,7 +24,7 @@ impl CoCClient {
 
         let path = format!("{}/clans/{}", self.url, encoded_clan_tag);
 
-        let client_response = match self.send_get_request(&path).await {
+        let client_response = match self.send_get_request(&path, None).await {
             Ok(client_response) => client_response,
             Err(err) => return Err(err),
         };
@@ -51,7 +53,7 @@ impl CoCClient {
             self.url, encoded_clan_tag
         );
 
-        let client_response = match self.send_get_request(&path).await {
+        let client_response = match self.send_get_request(&path, None).await {
             Ok(client_response) => client_response,
             Err(err) => return Err(err),
         };
@@ -77,7 +79,7 @@ impl CoCClient {
 
         let path = format!("{}/clanwarleagues/wars/{}", self.url, encoded_war_tag);
 
-        let client_response = match self.send_get_request(&path).await {
+        let client_response = match self.send_get_request(&path, None).await {
             Ok(client_response) => client_response,
             Err(err) => return Err(err),
         };
@@ -88,12 +90,13 @@ impl CoCClient {
     pub async fn get_clan_war_log(
         self: Self,
         clan_tag: &str,
+        params: Option<HashMap<&str, &str>>,
     ) -> Result<ClanWarLog, CoCClientError> {
         let encoded_clan_tag = encode(&clan_tag).into_owned();
 
         let path = format!("{}/clans/{}/warlog", self.url, encoded_clan_tag);
 
-        let client_response = match self.send_get_request(&path).await {
+        let client_response = match self.send_get_request(&path, params).await {
             Ok(client_response) => client_response,
             Err(err) => return Err(err),
         };
@@ -109,7 +112,7 @@ impl CoCClient {
 
         let path = format!("{}/clans/{}/currentwar", self.url, encoded_clan_tag);
 
-        let client_response = match self.send_get_request(&path).await {
+        let client_response = match self.send_get_request(&path, None).await {
             Ok(client_response) => client_response,
             Err(err) => return Err(err),
         };
@@ -120,12 +123,13 @@ impl CoCClient {
     pub async fn get_clan_members(
         self: Self,
         clan_tag: &str,
+        params: Option<HashMap<&str, &str>>,
     ) -> Result<ClanMembers, CoCClientError> {
         let encoded_clan_tag = encode(&clan_tag).into_owned();
 
         let path = format!("{}/clans/{}/members", self.url, encoded_clan_tag);
 
-        let client_response = match self.send_get_request(&path).await {
+        let client_response = match self.send_get_request(&path, params).await {
             Ok(client_response) => client_response,
             Err(err) => return Err(err),
         };
@@ -136,12 +140,13 @@ impl CoCClient {
     pub async fn get_clan_capital_raid_seasons(
         self: Self,
         clan_tag: &str,
+        params: Option<HashMap<&str, &str>>,
     ) -> Result<CapitalRaidSeasons, CoCClientError> {
         let encoded_clan_tag = encode(&clan_tag).into_owned();
 
         let path = format!("{}/clans/{}/capitalraidseasons", self.url, encoded_clan_tag);
 
-        let client_response = match self.send_get_request(&path).await {
+        let client_response = match self.send_get_request(&path, params).await {
             Ok(client_response) => client_response,
             Err(err) => return Err(err),
         };
@@ -219,7 +224,7 @@ mod tests {
     async fn test_get_clan_war_log() {
         let client = set_up_client();
 
-        match client.get_clan_war_log(CLAN_TAG).await {
+        match client.get_clan_war_log(CLAN_TAG, None).await {
             Ok(_) => {
                 assert!(true);
             }
@@ -248,10 +253,30 @@ mod tests {
 
     #[tokio::test]
     #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
-    async fn test_clan_members() {
+    async fn test_get_clan_members() {
         let client = set_up_client();
 
-        match client.get_clan_members(CLAN_TAG).await {
+        match client.get_clan_members(CLAN_TAG, None).await {
+            Ok(_) => {
+                assert!(true);
+            }
+            Err(err) => {
+                println!("{}", err);
+                assert!(false);
+            }
+        };
+    }
+
+    #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
+    async fn test_get_clan_members_with_limit_param() {
+        let client = set_up_client();
+
+        let mut params: HashMap<&str, &str> = HashMap::new();
+
+        params.insert("limit", "5");
+
+        match client.get_clan_members(CLAN_TAG, None).await {
             Ok(_) => {
                 assert!(true);
             }
@@ -267,7 +292,7 @@ mod tests {
     async fn test_get_clan_capital_raid_seasons() {
         let client = set_up_client();
 
-        match client.get_clan_capital_raid_seasons(CLAN_TAG).await {
+        match client.get_clan_capital_raid_seasons(CLAN_TAG, None).await {
             Ok(_) => {
                 assert!(true);
             }

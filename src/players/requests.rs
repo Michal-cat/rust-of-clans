@@ -11,7 +11,7 @@ impl CoCClient {
 
         let path = format!("{}/players/{}", self.url, encoded_player_tag);
 
-        let client_response = match self.send_get_request(&path).await {
+        let client_response = match self.send_get_request(&path, None).await {
             Ok(client_response) => client_response,
             Err(err) => return Err(err),
         };

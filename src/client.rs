@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use reqwest::{header, Client, StatusCode};
 
 use crate::errors::{ClientError, CoCClientError, ServerError};
@@ -108,13 +110,26 @@ impl CoCClient {
     ///
     /// Returns a `Result` containing the client response on success, or a `CoCClientError`
     /// if there was an error sending the request or receiving the response.
-    pub async fn send_get_request(self, path: &str) -> Result<ClientResponse, CoCClientError> {
+    pub async fn send_get_request(
+        self,
+        path: &str,
+        params: Option<HashMap<&str, &str>>,
+    ) -> Result<ClientResponse, CoCClientError> {
         let client = self.client.ok_or(CoCClientError::MissingClientError)?;
-        let response = client
-            .get(path)
+
+        let mut request_builder = client.get(path);
+
+        if let Some(params) = params {
+            for (key, value) in params {
+                request_builder = request_builder.query(&(key, value));
+            }
+        }
+
+        let response = request_builder
             .send()
             .await
             .map_err(CoCClientError::Request)?;
+
         let status_code = response.status();
         let text = response.text().await.map_err(CoCClientError::Request)?;
 
