@@ -5,8 +5,8 @@
 //!
 //! ## Example Usage
 //!
-//! ```rust
-//! use rust_of_clans::CoCClient;
+//! ```no_run
+//! use rust_of_clans::client::CoCClient;
 //!
 //! #[tokio::main]
 //! async fn main() {
