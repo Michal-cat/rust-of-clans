@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::clans::models::{BuilderBaseLague, ClanMemberRole, Label, League, PlayerHouse};
 
+/// Represents a player in Clash of Clans.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Player {
     pub league: League,
@@ -56,6 +57,7 @@ pub struct Player {
     pub player_house: Option<PlayerHouse>,
 }
 
+/// Represents the clan information of a player.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PlayerClan {
     pub tag: String,
@@ -66,6 +68,7 @@ pub struct PlayerClan {
     pub badge_urls: HashMap<String, String>,
 }
 
+/// Represents the war preference of a player.
 #[derive(Serialize, Deserialize, Debug)]
 pub enum WarPreference {
     #[serde(rename = "out")]
@@ -74,6 +77,7 @@ pub enum WarPreference {
     In,
 }
 
+/// Represents the legend statistics of a player.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PlayerLegendStatistics {
     #[serde(rename = "legendTrophies")]
@@ -94,6 +98,7 @@ pub struct PlayerLegendStatistics {
     pub current_seasob: Option<LegendLeagueTournamentSeasonResult>,
 }
 
+/// Represents the result of a legend league tournament season for a player.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LegendLeagueTournamentSeasonResult {
     pub trophies: i64,
@@ -101,6 +106,7 @@ pub struct LegendLeagueTournamentSeasonResult {
     pub rank: i64,
 }
 
+/// Represents a level of a player's item (troop, hero, or spell).
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PlayerItemLevel {
     pub level: i64,
@@ -112,6 +118,7 @@ pub struct PlayerItemLevel {
     pub super_troop_is_active: Option<bool>,
 }
 
+/// Represents the type of village (home or builder base).
 #[derive(Serialize, Deserialize, Debug)]
 pub enum VillageType {
     #[serde(rename = "home")]
@@ -120,6 +127,7 @@ pub enum VillageType {
     BuilderBase,
 }
 
+/// Represents the progress of a player's achievement.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PlayerAchivementProgress {
     pub stars: i64,
