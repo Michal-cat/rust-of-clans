@@ -121,7 +121,7 @@ impl CoCClient {
 
         if let Some(params) = params {
             for (key, value) in params {
-                request_builder = request_builder.query(&(key, value));
+                request_builder = request_builder.query(&[(key, value)]);
             }
         }
 
