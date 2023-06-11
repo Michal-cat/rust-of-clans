@@ -5,7 +5,7 @@ use urlencoding::encode;
 use crate::{client::CoCClient, errors::CoCClientError};
 
 use super::models::{
-    CapitalRaidSeasons, Clan, ClanMembers, ClanWar, ClanWarLeagueGroup, ClanWarLog,
+    CapitalRaidSeasons, Clan, ClanList, ClanMembers, ClanWar, ClanWarLeagueGroup, ClanWarLog,
 };
 
 impl CoCClient {
@@ -196,6 +196,20 @@ impl CoCClient {
 
         CoCClient::handle_response(client_response).await
     }
+
+    pub async fn get_clans(
+        self: Self,
+        params: HashMap<&str, &str>,
+    ) -> Result<ClanList, CoCClientError> {
+        let path = format!("{}/clans", self.url);
+
+        let client_response = match self.send_get_request(&path, Some(params)).await {
+            Ok(client_response) => client_response,
+            Err(err) => return Err(err),
+        };
+
+        CoCClient::handle_response(client_response).await
+    }
 }
 
 #[cfg(test)]
@@ -319,7 +333,7 @@ mod tests {
 
         params.insert("limit", "5");
 
-        match client.get_clan_members(CLAN_TAG, None).await {
+        match client.get_clan_members(CLAN_TAG, Some(params)).await {
             Ok(_) => {
                 assert!(true);
             }
@@ -336,6 +350,26 @@ mod tests {
         let client = set_up_client();
 
         match client.get_clan_capital_raid_seasons(CLAN_TAG, None).await {
+            Ok(_) => {
+                assert!(true);
+            }
+            Err(err) => {
+                println!("{}", err);
+                assert!(false);
+            }
+        };
+    }
+
+    #[tokio::test]
+    #[ignore = "Bearer token is not configured for GitHub Actions IP address"]
+    async fn test_get_clans() {
+        let client = set_up_client();
+
+        let mut params: HashMap<&str, &str> = HashMap::new();
+
+        params.insert("name", "erlendgemmer");
+
+        match client.get_clans(params).await {
             Ok(_) => {
                 assert!(true);
             }
