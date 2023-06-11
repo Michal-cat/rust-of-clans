@@ -521,3 +521,9 @@ pub struct ClanCapitalRaidSeasonDefenseLogEntry {
     pub districts_destroyed: i64,
     pub districts: Vec<ClanCapitalRaidSeasonDistrict>,
 }
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ClanList {
+    pub items: Vec<Clan>,
+    pub paging: Option<Paging>,
+}
