@@ -56,3 +56,4 @@ pub mod errors;
 /// It enables you to retrieve player information, search for players, and perform operations related to player data in the Clash of Clans API.
 /// This module encapsulates functionality related to players in the Clash of Clans API client.
 pub mod players;
+pub mod leagues;
