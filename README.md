@@ -2,6 +2,10 @@
 
 Welcome to Rust of Clans, the ultimate Clash of Clans API client for Rust! 🎮 Whether you're a seasoned clan leader, a strategy enthusiast, or simply love diving into the world of Clash of Clans, this package is here to make your life easier.
 
+## Getting Started
+
+To use the Rust of Clans API client, you need to obtain an API key from the official [Clash of Clans Developer Portal](https://developer.clashofclans.com/).
+
 ## Features
 
 - **Simplified API Access:** Rust of Clans provides a clean and intuitive interface to interact with the official Clash of Clans API effortlessly.
