@@ -1,6 +1,6 @@
 [package]
 name = "rust_of_clans"
-version = "0.6.0"
+version = "0.6.1"
 edition = "2021"
 authors = ["Mikkel Aas <aa.mikkel2902@gmail.com>"]
 description = "A Clash of Clans API client"
