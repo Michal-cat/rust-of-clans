@@ -16,7 +16,7 @@ pub struct Clan {
     pub war_ties: i64,
     pub war_losses: i64,
     pub clan_points: i64,
-    pub required_town_hall_level: i64,
+    pub required_town_hall_level: Option<i64>,
     pub chat_language: Language,
     pub is_family_friendly: bool,
     pub clan_capital_points: i64,
@@ -222,8 +222,8 @@ pub enum ClanWarLeagueGroupState {
     NotInWar,
     #[serde(rename = "preparation")]
     Preparation,
-    #[serde(rename = "war")]
-    War,
+    #[serde(rename = "inWar")]
+    InWar,
     #[serde(rename = "ended")]
     Ended,
 }
@@ -382,7 +382,7 @@ pub struct ClanCapitalRaidSeason {
     pub attack_log: Vec<ClanCapitalRaidSeasonAttackLogEntry>,
     pub defense_log: Vec<ClanCapitalRaidSeasonDefenseLogEntry>,
     pub state: String,
-    pub start_rime: String,
+    pub start_rime: Option<String>,
     pub end_time: String,
     pub capital_total_loot: i64,
     pub raids_completed: i64,
