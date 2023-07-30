@@ -57,3 +57,4 @@ pub mod errors;
 /// This module encapsulates functionality related to players in the Clash of Clans API client.
 pub mod players;
 pub mod leagues;
+pub mod goldpass;
