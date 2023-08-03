@@ -253,23 +253,6 @@ pub struct ClanWarLeagueRound {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct ClanWarLog {
-    pub items: Vec<ClanWarLogEntry>,
-    pub paging: Option<Paging>,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Paging {
-    pub cursors: Cursors,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Cursors {
-    pub before: Option<String>,
-    pub after: Option<String>,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct ClanWarLogEntry {
     pub clan: WarClan,
@@ -365,18 +348,6 @@ pub enum ClanWarState {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct ClanMembers {
-    pub items: Vec<ClanMember>,
-    pub paging: Option<Paging>,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct CapitalRaidSeasons {
-    pub items: Vec<ClanCapitalRaidSeason>,
-    pub paging: Option<Paging>,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct ClanCapitalRaidSeason {
     pub attack_log: Vec<ClanCapitalRaidSeasonAttackLogEntry>,
@@ -458,10 +429,4 @@ pub struct ClanCapitalRaidSeasonDefenseLogEntry {
     pub district_count: i64,
     pub districts_destroyed: i64,
     pub districts: Vec<ClanCapitalRaidSeasonDistrict>,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ClanList {
-    pub items: Vec<Clan>,
-    pub paging: Option<Paging>,
 }
