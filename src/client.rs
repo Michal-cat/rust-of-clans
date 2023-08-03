@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use reqwest::{header, Client, StatusCode};
+use serde::{Deserialize, Serialize};
 
 use crate::errors::{ClientError, CoCClientError, ServerError};
 
@@ -16,6 +17,23 @@ pub struct CoCClient {
 pub struct ClientResponse {
     pub text: String,
     pub status_code: StatusCode,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Cursors {
+    pub before: Option<String>,
+    pub after: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Paging {
+    pub cursors: Cursors,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct PagedResponse<T> {
+    pub items: Vec<T>,
+    pub paging: Option<Paging>,
 }
 
 impl CoCClient {
