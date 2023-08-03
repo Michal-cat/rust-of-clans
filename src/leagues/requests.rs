@@ -1,14 +1,17 @@
 use std::collections::HashMap;
 
-use crate::{client::CoCClient, errors::CoCClientError};
+use crate::{
+    client::{CoCClient, PagedResponse},
+    errors::CoCClientError,
+};
 
-use super::models::{League, LeagueInfo, LeagueList, PlayerRankingList, SeasonList};
+use super::models::{League, LeagueInfo, PlayerRanking, SeasonInfo};
 
 impl CoCClient {
     pub async fn get_capital_leagues(
         self: Self,
         params: Option<HashMap<&str, &str>>,
-    ) -> Result<LeagueList<LeagueInfo>, CoCClientError> {
+    ) -> Result<PagedResponse<LeagueInfo>, CoCClientError> {
         let path = format!("{}/capitalleagues/", self.url);
 
         let client_response = match self.send_get_request(&path, params).await {
@@ -22,7 +25,7 @@ impl CoCClient {
     pub async fn get_leagues(
         self: Self,
         params: Option<HashMap<&str, &str>>,
-    ) -> Result<LeagueList<League>, CoCClientError> {
+    ) -> Result<PagedResponse<League>, CoCClientError> {
         let path = format!("{}/capitalleagues/", self.url);
 
         let client_response = match self.send_get_request(&path, params).await {
@@ -50,7 +53,7 @@ impl CoCClient {
     pub async fn get_builder_base_leagues(
         self: Self,
         params: Option<HashMap<&str, &str>>,
-    ) -> Result<LeagueList<LeagueInfo>, CoCClientError> {
+    ) -> Result<PagedResponse<LeagueInfo>, CoCClientError> {
         let path = format!("{}/builderbaseleagues/", self.url);
 
         let client_response = match self.send_get_request(&path, params).await {
@@ -89,7 +92,7 @@ impl CoCClient {
     pub async fn get_war_leagues(
         self: Self,
         params: Option<HashMap<&str, &str>>,
-    ) -> Result<LeagueList<LeagueInfo>, CoCClientError> {
+    ) -> Result<PagedResponse<LeagueInfo>, CoCClientError> {
         let path = format!("{}/warleagues/", self.url);
 
         let client_response = match self.send_get_request(&path, params).await {
@@ -115,7 +118,7 @@ impl CoCClient {
         self: Self,
         league_id: u32,
         params: Option<HashMap<&str, &str>>,
-    ) -> Result<SeasonList, CoCClientError> {
+    ) -> Result<PagedResponse<SeasonInfo>, CoCClientError> {
         let path = format!("{}/leagues/{}/seasons", self.url, league_id);
 
         let client_response = match self.send_get_request(&path, params).await {
@@ -131,7 +134,7 @@ impl CoCClient {
         league_id: u32,
         season_id: &str,
         params: Option<HashMap<&str, &str>>,
-    ) -> Result<PlayerRankingList, CoCClientError> {
+    ) -> Result<PagedResponse<PlayerRanking>, CoCClientError> {
         let path = format!("{}/leagues/{}/seasons/{}", self.url, league_id, season_id);
 
         let client_response = match self.send_get_request(&path, params).await {
