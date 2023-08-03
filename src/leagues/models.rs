@@ -2,26 +2,6 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
-use crate::clans::models::Paging;
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct LeagueList<T> {
-    pub items: Vec<T>,
-    pub paging: Paging,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct SeasonList {
-    pub items: Vec<SeasonInfo>,
-    pub paging: Paging,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct PlayerRankingList {
-    pub items: Vec<PlayerRanking>,
-    pub paging: Paging,
-}
-
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct PlayerRanking {
