@@ -2,10 +2,13 @@ use std::collections::HashMap;
 
 use urlencoding::encode;
 
-use crate::{client::CoCClient, errors::CoCClientError};
+use crate::{
+    client::{CoCClient, PagedResponse},
+    errors::CoCClientError,
+};
 
 use super::models::{
-    CapitalRaidSeasons, Clan, ClanList, ClanMembers, ClanWar, ClanWarLeagueGroup, ClanWarLog,
+    Clan, ClanCapitalRaidSeason, ClanMember, ClanWar, ClanWarLeagueGroup, ClanWarLogEntry,
 };
 
 impl CoCClient {
@@ -102,7 +105,7 @@ impl CoCClient {
         self: Self,
         clan_tag: &str,
         params: Option<HashMap<&str, &str>>,
-    ) -> Result<ClanWarLog, CoCClientError> {
+    ) -> Result<PagedResponse<ClanWarLogEntry>, CoCClientError> {
         let encoded_clan_tag = encode(&clan_tag).into_owned();
 
         let path = format!("{}/clans/{}/warlog", self.url, encoded_clan_tag);
@@ -156,7 +159,7 @@ impl CoCClient {
         self: Self,
         clan_tag: &str,
         params: Option<HashMap<&str, &str>>,
-    ) -> Result<ClanMembers, CoCClientError> {
+    ) -> Result<PagedResponse<ClanMember>, CoCClientError> {
         let encoded_clan_tag = encode(&clan_tag).into_owned();
 
         let path = format!("{}/clans/{}/members", self.url, encoded_clan_tag);
@@ -184,7 +187,7 @@ impl CoCClient {
         self: Self,
         clan_tag: &str,
         params: Option<HashMap<&str, &str>>,
-    ) -> Result<CapitalRaidSeasons, CoCClientError> {
+    ) -> Result<PagedResponse<ClanCapitalRaidSeason>, CoCClientError> {
         let encoded_clan_tag = encode(&clan_tag).into_owned();
 
         let path = format!("{}/clans/{}/capitalraidseasons", self.url, encoded_clan_tag);
@@ -200,7 +203,7 @@ impl CoCClient {
     pub async fn get_clans(
         self: Self,
         params: HashMap<&str, &str>,
-    ) -> Result<ClanList, CoCClientError> {
+    ) -> Result<PagedResponse<Clan>, CoCClientError> {
         let path = format!("{}/clans", self.url);
 
         let client_response = match self.send_get_request(&path, Some(params)).await {
