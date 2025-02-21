@@ -4,6 +4,7 @@ use std::fmt;
 
 use serde::{Deserialize, Serialize};
 
+#[derive(Debug)]
 /// Represents various error types that can occur in the Clash of Clans client.
 pub enum CoCClientError {
     /// Represents an error that occurred during a request.

@@ -17,7 +17,7 @@ pub struct Player {
     pub defense_wins: i64,
     pub versus_trophies: i64,
     pub town_hall_level: i64,
-    pub town_hall_weapon_level: i64,
+    pub town_hall_weapon_level: Option<i64>,
     pub versus_battle_wins: i64,
     pub legend_statistics: PlayerLegendStatistics,
     pub troops: Vec<PlayerItemLevel>,

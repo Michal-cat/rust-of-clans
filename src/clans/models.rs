@@ -283,10 +283,11 @@ pub struct ClanWarMember {
     pub tag: String,
     pub name: String,
     pub map_position: i64,
-    pub town_hall_level: i64,
+    pub townhall_level: i64,
+    pub weapon_level: Option<i64>,
     pub opponent_attacks: i64,
-    pub best_opponent_attack: ClanWarAttack,
-    pub attacks: Vec<ClanWarAttack>,
+    pub best_opponent_attack: Option<ClanWarAttack>,
+    pub attacks: Option<Vec<ClanWarAttack>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -295,12 +296,13 @@ pub struct ClanWarAttack {
     pub order: i64,
     pub attacker_tag: String,
     pub defender_tag: String,
+    pub cwc_score: Option<f32>,
     pub stars: i64,
     pub destruction_percentage: i64,
     pub duration: i64,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub enum ClanWarResult {
     #[serde(rename = "lose")]
     Lose,
@@ -345,6 +347,8 @@ pub enum ClanWarState {
     InWar,
     #[serde(rename = "ended")]
     Ended,
+    #[serde(rename = "warEnded")]
+    WarEnded,
 }
 
 #[derive(Serialize, Deserialize, Debug)]

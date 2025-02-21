@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::errors::{ClientError, CoCClientError, ServerError};
 
+#[derive(Clone, Debug)]
 /// Represents a Clash of Clans API client.
 pub struct CoCClient {
     pub base_url: String,
