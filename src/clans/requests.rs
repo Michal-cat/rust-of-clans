@@ -77,7 +77,7 @@ impl CoCClient {
     pub async fn get_clan_war_league_war(
         self,
         war_tag: &str,
-    ) -> Result<ClanWarLeagueGroup, CoCClientError> {
+    ) -> Result<ClanWar, CoCClientError> {
         let encoded_war_tag = encode(&war_tag).into_owned();
 
         let path = format!("{}/clanwarleagues/wars/{}", self.url, encoded_war_tag);
